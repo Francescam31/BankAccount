@@ -14,7 +14,7 @@ public class BankAccountTest {
 
     @BeforeEach
     public void setUp() {
-        bankAccount = new BankAccount("FirstName", "LastName", today, 00000000);
+        bankAccount = new BankAccount("FirstName", "LastName", today, 00000000, "Savings", 500);
     }
 
     //----------------------------------------------
@@ -108,9 +108,9 @@ public class BankAccountTest {
     public void canGetBalance() {
 //        Given
 //        When
-        int result = bankAccount.getBalance();
+        double result = bankAccount.getBalance();
 //        Then
-        int expected = 0;
+        double expected = 0;
         assertThat(result).isEqualTo(expected);
     }
 
@@ -118,9 +118,9 @@ public class BankAccountTest {
     public void canSetBalance() {
 //        When
         bankAccount.setBalance(100);
-        int result = bankAccount.getBalance();
+        double result = bankAccount.getBalance();
 //        Then
-        int expected = 100;
+        double expected = 100;
         assertThat(result).isEqualTo(expected);
     }
 
@@ -128,16 +128,16 @@ public class BankAccountTest {
     @Test
     public void canDeposit(){
         bankAccount.deposit(100);
-        int result = bankAccount.getBalance();
-        int expected = 100;
+        double result = bankAccount.getBalance();
+        double expected = 100;
         assertThat(result).isEqualTo(expected);
     }
 
     @Test
     public void canWithdraw(){
         bankAccount.withdrawal(50);
-        int result = bankAccount.getBalance();
-        int expected = -50;
+        double result = bankAccount.getBalance();
+        double expected = -50;
         assertThat(result).isEqualTo(expected);
     }
 
@@ -145,11 +145,28 @@ public class BankAccountTest {
     public void canPayInterest(){
         bankAccount.setBalance(100);
         bankAccount.payInterest(5);
-        int result = bankAccount.getBalance();
-        int expected = 105;
+        double result = bankAccount.getBalance();
+        double expected = 105;
         assertThat(result).isEqualTo(expected);
     }
 
+    @Test
+    public void canAdjustInterest(){
+        bankAccount.setAccountType("Current");
+        bankAccount.setBalance(100);
+        bankAccount.payInterest(5);
+        double result = bankAccount.getBalance();
+        double expected = 100.49999999999999;
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void canComplyWithOverdraft(){
+        bankAccount.withdrawal(501);
+        double result = bankAccount.getBalance();
+        double expected = -500;
+        assertThat(result).isEqualTo(expected);
+    }
 }
 
 

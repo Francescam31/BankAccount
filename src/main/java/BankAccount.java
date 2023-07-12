@@ -5,14 +5,18 @@ public class BankAccount {
     private String lastName;
     private LocalDate dateOfBirth;
     private int accountNumber;
-    private int balance;
+    private double balance;
+    private String accountType;
+    private double overdraft;
 
-    public  BankAccount(String firstName, String lastName, LocalDate dateOfBirth, int accountNumber){
+    public  BankAccount(String firstName, String lastName, LocalDate dateOfBirth, int accountNumber, String accountType, double overdraft){
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.accountNumber = accountNumber;
         this.balance = 0;
+        this.accountType = accountType;
+        this.overdraft = overdraft;
     }
 
 
@@ -49,26 +53,44 @@ public class BankAccount {
     }
 
 
-    public int getBalance() {
+    public double getBalance() {
         return this.balance;
     }
 
-    public void setBalance(int newBalance){
+    public void setBalance(double newBalance){
         this.balance = newBalance;
     }
 
-    public void deposit(int depositAmount){
+    public void deposit(double depositAmount){
         this.balance += depositAmount;
     }
 
 
-    public void withdrawal(int withdrawalAmount) {
-        this.balance -= withdrawalAmount;
+    public void withdrawal(double withdrawalAmount) {
+        if(this.balance + this.overdraft - withdrawalAmount >= 0){
+            this.balance -= withdrawalAmount;
+        }
+        else{
+            this.balance = this.overdraft * -1;
+        }
     }
 
 
     public void payInterest(double interestRate) {
+        if(this.accountType == "Current"){
+            interestRate /= 10;
+        }
         double percentage = 1 + interestRate/100;
         this.balance *= percentage;
     }
+
+    public void setAccountType(String newAccountType){
+        this.accountType = newAccountType;
+    }
+
+    public String getAccountType(){
+        return this.accountType;
+    }
+
+
 }
