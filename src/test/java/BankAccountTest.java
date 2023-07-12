@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.registerCustomDateFormat;
 
 public class BankAccountTest {
     BankAccount bankAccount;
@@ -126,7 +127,27 @@ public class BankAccountTest {
 //-------------------------------------------
     @Test
     public void canDeposit(){
+        bankAccount.deposit(100);
+        int result = bankAccount.getBalance();
+        int expected = 100;
+        assertThat(result).isEqualTo(expected);
+    }
 
+    @Test
+    public void canWithdraw(){
+        bankAccount.withdrawal(50);
+        int result = bankAccount.getBalance();
+        int expected = -50;
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void canPayInterest(){
+        bankAccount.setBalance(100);
+        bankAccount.payInterest(5);
+        int result = bankAccount.getBalance();
+        int expected = 105;
+        assertThat(result).isEqualTo(expected);
     }
 
 }

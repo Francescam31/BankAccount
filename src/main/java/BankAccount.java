@@ -57,5 +57,18 @@ public class BankAccount {
         this.balance = newBalance;
     }
 
-    
+    public void deposit(int depositAmount){
+        this.balance += depositAmount;
+    }
+
+
+    public void withdrawal(int withdrawalAmount) {
+        this.balance -= withdrawalAmount;
+    }
+
+
+    public void payInterest(double interestRate) {
+        double percentage = 1 + interestRate/100;
+        this.balance *= percentage;
+    }
 }
