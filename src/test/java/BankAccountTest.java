@@ -9,15 +9,16 @@ public class BankAccountTest {
     BankAccount bankAccount;
 
     LocalDate today = LocalDate.now();
+    LocalDate tomorrow = today.plusDays(1);
 
     @BeforeEach
-    public void setUp(){
-        bankAccount = new BankAccount("FirstName", "LastName", today, 01234567, 15);
+    public void setUp() {
+        bankAccount = new BankAccount("FirstName", "LastName", today, 00000000);
     }
 
-//    ------------------------------------------
+    //----------------------------------------------
     @Test
-    public void canGetFirstName(){
+    public void canGetFirstName() {
 //        Given
 //        When
         String result = bankAccount.getFirstName();
@@ -27,7 +28,7 @@ public class BankAccountTest {
     }
 
     @Test
-    public void canSetFirstName(){
+    public void canSetFirstName() {
 //        When
         bankAccount.setFirstName("newFirstName");
         String result = bankAccount.getFirstName();
@@ -38,25 +39,96 @@ public class BankAccountTest {
 //--------------------------------------------------
 
     @Test
-    public void canGetFirstName(){
+    public void canGetLastName() {
 //        Given
 //        When
-        String result = bankAccount.getFirstName();
+        String result = bankAccount.getLastName();
 //        Then
-        String expected = "FirstName";
+        String expected = "LastName";
         assertThat(result).isEqualTo(expected);
     }
 
     @Test
-    public void canSetFirstName(){
+    public void canSetLastName() {
 //        When
-        bankAccount.setFirstName("newFirstName");
-        String result = bankAccount.getFirstName();
+        bankAccount.setLastName("newLastName");
+        String result = bankAccount.getLastName();
 //        Then
-        String expected = "newFirstName";
+        String expected = "newLastName";
+        assertThat(result).isEqualTo(expected);
+    }
+//-------------------------------------------------
+
+    @Test
+    public void canGetDateOfBirth() {
+//        Given
+//        When
+        LocalDate result = bankAccount.getDateOfBirth();
+//        Then
+        LocalDate expected = today;
         assertThat(result).isEqualTo(expected);
     }
 
+    @Test
+    public void canSetDateOfBirth() {
+//        When
+        bankAccount.setDateOfBirth(tomorrow);
+        LocalDate result = bankAccount.getDateOfBirth();
+//        Then
+        LocalDate expected = tomorrow;
+        assertThat(result).isEqualTo(expected);
+    }
+//--------------------------------------------
+
+
+    @Test
+    public void canGetAccountNumber() {
+//        Given
+//        When
+        int result = bankAccount.getAccountNumber();
+//        Then
+        int expected = 00000000;
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void canSetAccountNumber() {
+//        When
+        bankAccount.setAccountNumber(11111111);
+        int result = bankAccount.getAccountNumber();
+//        Then
+        int expected = 11111111;
+        assertThat(result).isEqualTo(expected);
+
+    }
+
+    //---------------------------------------------------
+    @Test
+    public void canGetBalance() {
+//        Given
+//        When
+        int result = bankAccount.getBalance();
+//        Then
+        int expected = 0;
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    public void canSetBalance() {
+//        When
+        bankAccount.setBalance(100);
+        int result = bankAccount.getBalance();
+//        Then
+        int expected = 100;
+        assertThat(result).isEqualTo(expected);
+    }
+
+//-------------------------------------------
+    @Test
+    public void canDeposit(){
+
+    }
 
 }
+
 
